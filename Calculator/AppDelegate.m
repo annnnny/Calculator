@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Branch.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,58 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Initialize the session, set up a deep link handler
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        
+        // Start setting up the view controller hierarchy
+        UINavigationController *navC = (UINavigationController*) self.window.rootViewController;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *nextVC;
+        
+        // If the key 'pictureId' is presented in the deep link dictionary
+        // then load the picture screen with the appropriate picture
+        NSString *pictureId = [params objectForKey:@"pictureId"];
+        if (pictureId){
+            NSLog(@"Using PicVC");
+            nextVC = [storyboard instantiateViewControllerWithIdentifier:@"PicVC"];
+       //     [nextVC setNextPictureId:pictureId];  NOT WORKING
+       //     [nextVC setValue:pictureId forKey:@"pictureId"];
+        } else {
+            NSLog(@"Using mainVC");
+            nextVC = [storyboard instantiateViewControllerWithIdentifier:@"MainVC"];
+        }
+        
+     //   [navC setViewControllers:@[nextVC] animated:YES];
+        
+        if (!error) {
+            // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
+            // params will be empty if no data found
+            // ... insert custom logic here ...
+            NSLog(@"params: %@", params.description);
+        }
+        else{
+            NSLog(@"THERE IS ERROR: %@", error);
+        }
+
+        
+    }];
+    
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // pass the url to the handle deep link call
+   if (![[Branch getInstance] handleDeepLink:url]) {
+        // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+       NSLog(@"Am I here?");
+        
+        //Create branch link
+        [[Branch getInstance] getShortURLWithParams:@{@"foo": @"bar"} andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
+            if (!error) NSLog(@"got my Branch link to share: %@", url);
+        }];
+    }
     return YES;
 }
 

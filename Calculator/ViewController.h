@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "calcModel.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#import "Branch.h"
 
-@interface ViewController : UIViewController<calcModelDelegate, UITableViewDataSource,UITableViewDelegate>
+@interface ViewController : UIViewController<calcModelDelegate, UITableViewDataSource,UITableViewDelegate, MFMessageComposeViewControllerDelegate>
 {
     IBOutlet UITableView *historyTableView;
     UIButton *backButton;
@@ -19,6 +22,8 @@
 -(void) buttonClick:(id)sender;
 -(void) displayTable;
 -(void) removeTable;
+-(void) displayPic;
+-(void) share;
 
 @end
 

@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ViewController.m"
-            timestampString = "456918825.874351"
+            timestampString = "458125262.699729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            startingLineNumber = "623"
+            endingLineNumber = "623">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -35,13 +33,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ViewController.m"
-            timestampString = "456921195.340602"
+            timestampString = "458125262.699729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            startingLineNumber = "721"
+            endingLineNumber = "721">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,6 +86,20 @@
             endingLineNumber = "44"
             landmarkName = "-calculate:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Calculator/ViewController.h"
+            timestampString = "458112709.541473"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

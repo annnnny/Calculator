@@ -2,7 +2,7 @@
 //  ViewController.m
 //  Calculator
 //
-//  Created by HsuAnny on 6/24/15.
+//  Created by HsuAnny on 7/9/15.
 //  Copyright (c) 2015 HsuAnny. All rights reserved.
 //
 
@@ -21,7 +21,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     float screenWidth = self.view.frame.size.width;
-
+    float screenHeight = self.view.frame.size.height;
+    float buttonHeight = (screenHeight - 202) /5;
+    
     self.originalLabel = [[UILabel alloc] init];
     self.originalLabel.backgroundColor = [UIColor blackColor];
     self.originalLabel.frame = CGRectMake(0, 20, screenWidth, 202);
@@ -41,9 +43,19 @@
     [historyButton addTarget:self action:@selector(displayTable) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:historyButton];
     
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    shareButton.frame = CGRectMake(10, 70, 60, 30);
+    shareButton.backgroundColor = [UIColor whiteColor];
+    shareButton.layer.cornerRadius = 8; // this value vary as per your desire
+    shareButton.clipsToBounds = YES;
+    [shareButton setTitle:@"Share" forState:UIControlStateNormal];
+    [shareButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shareButton];
+    
     //First Row
     UIButton *buttonAC = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonAC.frame = CGRectMake(0, 202, screenWidth/4, 93);
+    buttonAC.frame = CGRectMake(0, 202, screenWidth/4, buttonHeight);
     buttonAC.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     buttonAC.tag = 10;
     buttonAC.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -55,7 +67,7 @@
     [self.view addSubview:buttonAC];
     
     UIButton *buttonNeg = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonNeg.frame = CGRectMake(screenWidth/4, 202, screenWidth/4, 93);
+    buttonNeg.frame = CGRectMake(screenWidth/4, 202, screenWidth/4, buttonHeight);
     buttonNeg.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     buttonNeg.tag = 11;
     buttonNeg.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -67,7 +79,7 @@
     [self.view addSubview:buttonNeg];
     
     UIButton *buttonPer = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonPer.frame = CGRectMake(2*screenWidth/4, 202, screenWidth/4, 93);
+    buttonPer.frame = CGRectMake(2*screenWidth/4, 202, screenWidth/4, buttonHeight);
     buttonPer.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     buttonPer.tag = 12;
     buttonPer.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -79,7 +91,7 @@
     [self.view addSubview:buttonPer];
     
     UIButton *buttonPlus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonPlus.frame = CGRectMake(3*screenWidth/4, 202, screenWidth/4, 93);
+    buttonPlus.frame = CGRectMake(3*screenWidth/4, 202, screenWidth/4, buttonHeight);
     buttonPlus.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206.0/255.0 blue:250.0/255.0 alpha:1.0];
     buttonPlus.tag = 13;
     buttonPlus.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -93,7 +105,7 @@
     //Second Row
     UIButton *buttonOne = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     buttonOne.tag = 1;
-    buttonOne.frame = CGRectMake(0, 295, screenWidth/4, 93);
+    buttonOne.frame = CGRectMake(0, 202+buttonHeight, screenWidth/4, buttonHeight);
     buttonOne.backgroundColor = [UIColor grayColor];
     buttonOne.titleLabel.font = [UIFont systemFontOfSize:25.0];
     [buttonOne setTitle:@"1" forState:UIControlStateNormal];
@@ -104,7 +116,7 @@
     [self.view addSubview:buttonOne];
     
     UIButton *buttonTwo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonTwo.frame = CGRectMake(screenWidth/4, 295, screenWidth/4, 93);
+    buttonTwo.frame = CGRectMake(screenWidth/4, 202+buttonHeight, screenWidth/4, buttonHeight);
     buttonTwo.backgroundColor = [UIColor grayColor];
     buttonTwo.tag = 2;
     buttonTwo.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -116,7 +128,7 @@
     [self.view addSubview:buttonTwo];
     
     UIButton *buttonThree = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonThree.frame = CGRectMake(2*screenWidth/4, 295, screenWidth/4, 93);
+    buttonThree.frame = CGRectMake(2*screenWidth/4, 202+buttonHeight, screenWidth/4, buttonHeight);
     buttonThree.backgroundColor = [UIColor grayColor];
     buttonThree.tag = 3;
     buttonThree.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -128,7 +140,7 @@
     [self.view addSubview:buttonThree];
     
     UIButton *buttonMinus = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonMinus.frame = CGRectMake(3*screenWidth/4, 295, screenWidth/4, 93);
+    buttonMinus.frame = CGRectMake(3*screenWidth/4, 202+buttonHeight, screenWidth/4, buttonHeight);
     buttonMinus.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206.0/255.0 blue:250.0/255.0 alpha:1.0];
     buttonMinus.tag = 14;
     buttonMinus.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -141,7 +153,7 @@
     
     // Third row
     UIButton *buttonFour = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonFour.frame = CGRectMake(0 , 388, screenWidth/4, 93);
+    buttonFour.frame = CGRectMake(0 , 202+2*buttonHeight, screenWidth/4, buttonHeight);
     buttonFour.backgroundColor = [UIColor grayColor];
     buttonFour.tag = 4;
     buttonFour.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -153,7 +165,7 @@
     [self.view addSubview:buttonFour];
     
     UIButton *buttonFive = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonFive.frame = CGRectMake(screenWidth/4, 388, screenWidth/4, 93);
+    buttonFive.frame = CGRectMake(screenWidth/4, 202+2*buttonHeight, screenWidth/4, buttonHeight);
     buttonFive.backgroundColor = [UIColor grayColor];
     buttonFive.tag = 5;
     buttonFive.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -165,7 +177,7 @@
     [self.view addSubview:buttonFive];
     
     UIButton *buttonSix = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonSix.frame = CGRectMake(2*screenWidth/4, 388, screenWidth/4, 93);
+    buttonSix.frame = CGRectMake(2*screenWidth/4, 202+2*buttonHeight, screenWidth/4, buttonHeight);
     buttonSix.backgroundColor = [UIColor grayColor];
     buttonSix.tag = 6;
     buttonSix.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -177,7 +189,7 @@
     [self.view addSubview:buttonSix];
     
     UIButton *buttonMul = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonMul.frame = CGRectMake(3*screenWidth/4, 388, screenWidth/4, 93);
+    buttonMul.frame = CGRectMake(3*screenWidth/4, 202+2*buttonHeight, screenWidth/4, buttonHeight);
     buttonMul.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206.0/255.0 blue:250.0/255.0 alpha:1.0];
     buttonMul.tag = 15;
     buttonMul.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -190,7 +202,7 @@
     
     // Fourth row
     UIButton *buttonSeven = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonSeven.frame = CGRectMake(0 , 481, screenWidth/4, 93);
+    buttonSeven.frame = CGRectMake(0 , 202+3*buttonHeight, screenWidth/4, buttonHeight);
     buttonSeven.backgroundColor = [UIColor grayColor];
     buttonSeven.tag = 7;
     buttonSeven.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -202,7 +214,7 @@
     [self.view addSubview:buttonSeven];
     
     UIButton *buttonEight = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonEight.frame = CGRectMake(screenWidth/4, 481, screenWidth/4, 93);
+    buttonEight.frame = CGRectMake(screenWidth/4, 202+3*buttonHeight, screenWidth/4, buttonHeight);
     buttonEight.backgroundColor = [UIColor grayColor];
     buttonEight.tag = 8;
     buttonEight.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -214,7 +226,7 @@
     [self.view addSubview:buttonEight];
     
     UIButton *buttonNine = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonNine.frame = CGRectMake(2*screenWidth/4, 481, screenWidth/4, 93);
+    buttonNine.frame = CGRectMake(2*screenWidth/4, 202+3*buttonHeight, screenWidth/4, buttonHeight);
     buttonNine.backgroundColor = [UIColor grayColor];
     buttonNine.tag = 9;
     buttonNine.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -226,7 +238,7 @@
     [self.view addSubview:buttonNine];
     
     UIButton *buttonDiv = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonDiv.frame = CGRectMake(3*screenWidth/4, 481, screenWidth/4, 93);
+    buttonDiv.frame = CGRectMake(3*screenWidth/4, 202+3*buttonHeight, screenWidth/4, buttonHeight);
     buttonDiv.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206.0/255.0 blue:250.0/255.0 alpha:1.0];
     buttonDiv.tag = 16;
     buttonDiv.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -239,7 +251,7 @@
     
     // Fifth row
     UIButton *buttonZero = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonZero.frame = CGRectMake(0, 574, screenWidth/2, 93);
+    buttonZero.frame = CGRectMake(0, 202+4*buttonHeight, screenWidth/2, buttonHeight);
     buttonZero.backgroundColor = [UIColor grayColor];
     buttonZero.tag = 0;
     buttonZero.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -251,7 +263,7 @@
     [self.view addSubview:buttonZero];
     
     UIButton *buttonPoint = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonPoint.frame = CGRectMake(2*screenWidth/4, 574, screenWidth/4, 93);
+    buttonPoint.frame = CGRectMake(2*screenWidth/4, 202+4*buttonHeight, screenWidth/4, buttonHeight);
     buttonPoint.backgroundColor = [UIColor grayColor];
     buttonPoint.tag = 17;
     buttonPoint.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -263,7 +275,7 @@
     [self.view addSubview:buttonPoint];
     
     UIButton *buttonEq = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonEq.frame = CGRectMake(3*screenWidth/4, 574, screenWidth/4, 93);
+    buttonEq.frame = CGRectMake(3*screenWidth/4, 202+4*buttonHeight, screenWidth/4, buttonHeight);
     buttonEq.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206.0/255.0 blue:250.0/255.0 alpha:1.0];
     buttonEq.tag = 18;
     buttonEq.titleLabel.font = [UIFont systemFontOfSize:25.0];
@@ -297,16 +309,16 @@
 } // viewDidLoad()
 
 -(void)buttonClick:(id)sender{
-
-   float result;
     
-   self.count++;
-   // 0 only dissapear if it's the first click
-   if (self.count == 1)
-       self.originalLabel.text = @"";
+    float result;
     
-   UIButton *btn = (UIButton*)sender;
-   // NSLog(@"%i",(int)btn.tag);
+    self.count++;
+    // 0 only dissapear if it's the first click
+    if (self.count == 1)
+        self.originalLabel.text = @"";
+    
+    UIButton *btn = (UIButton*)sender;
+    // NSLog(@"%i",(int)btn.tag);
     
     switch (btn.tag) {
         case 0:
@@ -316,7 +328,7 @@
         case 1:
             self.originalLabel.text = [NSString stringWithFormat:@"%@1",self.originalLabel.text];
             break;
-        
+            
         case 2:
             self.originalLabel.text = [NSString stringWithFormat:@"%@2",self.originalLabel.text];
             break;
@@ -340,7 +352,7 @@
         case 7:
             self.originalLabel.text = [NSString stringWithFormat:@"%@7",self.originalLabel.text];
             break;
-    
+            
         case 8:
             self.originalLabel.text = [NSString stringWithFormat:@"%@8",self.originalLabel.text];
             break;
@@ -348,12 +360,12 @@
         case 9:
             self.originalLabel.text = [NSString stringWithFormat:@"%@9",self.originalLabel.text];
             break;
-        
+            
         case 10:
             self.originalLabel.text = @"0";
             self.count = 0;
             break;
-    
+            
         case 11:
             // Negation
             break;
@@ -363,7 +375,7 @@
             result = [self.originalLabel.text doubleValue]/100;
             self.originalLabel.text = [NSString stringWithFormat:@"%f", result];
             break;
-        
+            
         case 13:
             if ([self.originalLabel.text hasSuffix:@"+"] || [self.originalLabel.text hasSuffix:@"-"] || [self.originalLabel.text hasSuffix:@"x"] || [self.originalLabel.text hasSuffix:@"/"])
                 self.originalLabel.text = [self.originalLabel.text substringToIndex:[self.originalLabel.text length] - 1];
@@ -375,19 +387,19 @@
                 self.originalLabel.text = [self.originalLabel.text substringToIndex:[self.originalLabel.text length] - 1];
             self.originalLabel.text = [NSString stringWithFormat:@"%@-",self.originalLabel.text];
             break;
-    
+            
         case 15:
             if ([self.originalLabel.text hasSuffix:@"+"] || [self.originalLabel.text hasSuffix:@"-"] || [self.originalLabel.text hasSuffix:@"x"] || [self.originalLabel.text hasSuffix:@"/"])
                 self.originalLabel.text = [self.originalLabel.text substringToIndex:[self.originalLabel.text length] - 1];
             self.originalLabel.text = [NSString stringWithFormat:@"%@x",self.originalLabel.text];
             break;
-        
+            
         case 16:
             if ([self.originalLabel.text hasSuffix:@"+"] || [self.originalLabel.text hasSuffix:@"-"] || [self.originalLabel.text hasSuffix:@"x"] || [self.originalLabel.text hasSuffix:@"/"])
                 self.originalLabel.text = [self.originalLabel.text substringToIndex:[self.originalLabel.text length] - 1];
             self.originalLabel.text = [NSString stringWithFormat:@"%@/",self.originalLabel.text];
             break;
-        
+            
         case 17:
             if ([self.originalLabel.text hasSuffix:@"."])
                 self.originalLabel.text = [self.originalLabel.text substringToIndex:[self.originalLabel.text length] - 1];
@@ -404,7 +416,7 @@
             
             // Stored in resultArray for history TableView
             [resultArray addObject:[NSNumber numberWithFloat:(float)result]];
-        
+            
             [historyTableView reloadData];
             break;
         } // default
@@ -429,7 +441,7 @@
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 35)];
     UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 35)];
     headerLabel.text = @"Results History";
@@ -466,5 +478,88 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void) displayPic
+{
+    
+}
+
+-(void) share{
+    
+    // Generate link
+    [[Branch getInstance] getShortURLWithParams:@{@"referringUsername":@"John", @"referringUserId":@"1234"} andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
+        if (!error) NSLog(@"got my Branch link to share: %@", url);
+    }];
+    
+    
+    // Generate link & SMS Share
+    NSDictionary *params = @{@"referringUsername": @"Bob",
+                             @"referringUserId": @"1234",
+                             @"pictureId":@"negPic.jpg"};
+    // ... insert code to start the spinner of your choice here ...
+    // 3rd link generated
+    [[Branch getInstance] getShortURLWithParams:params
+                                     andChannel:@"SMS"
+                                     andFeature:@"Referral"
+                                    andCallback:^(NSString *url, NSError *error) {
+                                        if (!error) {
+                                            // Check to make sure we can send messages on this device
+                                            if ([MFMessageComposeViewController canSendText]) {
+                                                MFMessageComposeViewController *messageComposer =
+                                                [[MFMessageComposeViewController alloc] init];
+                                                // Set the contents of the SMS/iMessage -- be sure to include the URL!
+                                                [messageComposer setBody:[NSString stringWithFormat:
+                                                                          @"Check out MyApp -- use my link to get free  points: %@", url]];
+                                                messageComposer.messageComposeDelegate = self;
+                                                [self presentViewController:messageComposer animated:YES completion:^{
+                                                    // ... insert code to stop the spinner here
+                                                }];
+                                            } else {
+                                                // ... insert code to stop the spinner here
+                                                [[[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                                            message:@"Your device cannot send messages."
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"Okay"
+                                                                  otherButtonTitles:nil] show];
+                                            }
+                                        }
+                                    }];
+    
+//    // Adding text
+//    NSString *shareString = @"Super amazing thing I want to share!";
+//    
+//    // Adding an image
+//    UIImage *amazingImage = [UIImage imageNamed:@"Super-Amazing-Image.png"];
+//    
+//    // Custom data
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    [params setObject:@"Joe" forKey:@"user"];
+//    [params setObject:@"https://s3-us-west-1.amazonaws.com/myapp/joes_pic.jpg" forKey:@"profile_pic"];
+//    [params setObject:@"Joe likes long walks on the beach..." forKey:@"description"];
+//    [params setObject:@"Joe's My App Referral" forKey:@"$og_title"];
+//    [params setObject:@"https://s3-us-west-1.amazonaws.com/myapp/joes_pic.jpg" forKey:@"$og_image_url"];
+//    [params setObject:@"Join Joe in My App - it's awesome" forKey:@"$og_description"];
+//    [params setObject:@"http://myapp.com/desktop_splash" forKey:@"$desktop_url"];
+//    
+//    NSArray *tags = @[@"tag1", @"tag2"];
+//    NSString *feature = @"invite";
+//    NSString *stage = @"2";
+//    
+//    // Adding a link -- Branch UIActivityItemProvider
+//    UIActivityItemProvider *itemProvider = [Branch getBranchActivityItemWithParams:params feature:feature stage:stage tags:tags];
+//    
+//    // Pass this in the NSArray of ActivityItems when initializing a UIActivityViewController
+//    UIActivityViewController *shareViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, amazingImage, itemProvider] applicationActivities:nil];
+//    
+//    // Present the share sheet!
+//    [self.navigationController presentViewController:shareViewController animated:YES completion:nil];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 @end
